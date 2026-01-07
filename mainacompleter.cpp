@@ -8,9 +8,10 @@
 #include "ouvrirpince.h"
 #include "deplacer.h"
 #include "actionrobot.h"
+#include "rotation.h"
 
 int main() {
-    ContexteRobot ctx(0, 0, 100, true);
+    ContexteRobot ctx(0, 0, 100, 90, true);
 
     SequenceActions plan;
     std::ifstream fichier("data/plan.txt");
@@ -21,8 +22,8 @@ int main() {
     std::cerr << "--- Execution du plan ---" << std::endl;
     std::string commande;
     while (fichier >> commande){
+        double dx, dy, dz, dr;
         if (commande == "DEPLACER"){
-            double dx, dy, dz;
             fichier >> dx >> dy >> dz;
             plan.ajouter(new Deplacer(dx, dy, dz));
         }
@@ -31,6 +32,10 @@ int main() {
         }
         else if (commande == "FERMER_PINCE"){
             plan.ajouter(new FermerPince());
+        }
+        else if (commande == "ROTATION"){
+            fichier >> dr;
+            plan.ajouter(new Rotation(dr));
         }
 
         else{
