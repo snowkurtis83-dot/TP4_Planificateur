@@ -1,0 +1,1 @@
+Action executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000ms
