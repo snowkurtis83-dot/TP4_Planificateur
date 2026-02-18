@@ -21,26 +21,33 @@ int main() {
     }
     std::cerr << "--- Execution du plan ---" << std::endl;
     std::string commande;
-    while (fichier >> commande){
-        double dx, dy, dz, dr;
-        if (commande == "DEPLACER"){
-            fichier >> dx >> dy >> dz;
-            plan.ajouter(new Deplacer(dx, dy, dz));
-        }
-        else if (commande == "OUVRIR_PINCE"){
-            plan.ajouter(new OuvrirPince());
-        }
-        else if (commande == "FERMER_PINCE"){
-            plan.ajouter(new FermerPince());
-        }
-        else if (commande == "ROTATION"){
-            fichier >> dr;
-            plan.ajouter(new Rotation(dr));
+    while (fichier>>commande){
+        fichier2<<"Action executee :";
+        if (commande =="DEPLACER"){
+            double dx, dy, dz;
+            fichier >> dx>>dy>>dz;
+            plan.ajouter(new deplacer(dx,dy,dz));
+            fichier2<<commande<<" | dx="<<dx<<"mm, dy="<<dy<<"mm, dz= "<<dz<<"mm"<<endl;
         }
 
-        else{
-            std::cerr << "commande inconnue : " << commande << std::endl;
+        else if(commande =="OUVRIR_PINCE"){
+            plan.ajouter(new OuvrirPince());
+            fichier2<<commande<<endl;
         }
+        else if(commande == "FERMER_PINCE"){
+            plan.ajouter(new fermerpince());
+            fichier2<<commande<<endl;
+        }
+        else if(commande == "ROTATION"){
+            int angle;
+            fichier >> angle;
+            plan.ajouter(new rotation_angle(angle));
+            fichier2<<commande<<" | angle="<< angle<<" degres"<<endl;
+        }
+        else{
+            cerr<<"Commande inconnue :"<<commande<<endl;
+        }
+
     }
 
     /*plan.ajouter(new OuvrirPince());
