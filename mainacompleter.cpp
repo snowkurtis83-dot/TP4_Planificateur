@@ -1,35 +1,56 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <limits>
 
 #include "contexterobot.h"
 #include "sequenceactions.h"
-#include "fermerpince.h"
 #include "ouvrirpince.h"
+#include "fermerpince.h"
 #include "deplacer.h"
-#include "actionrobot.h"
 #include "rotation_angle.h"
 
-int main() {
-    ContexteRobot ctx(0, 0, 100, 90, true);
+using namespace std;
 
-    SequenceActions plan;
-    std::ifstream fichier("data/plan.txt");
-    if (!fichier.is_open()){
-        std::cerr << "Erreur : impossible d'ouvrir le fichier plan.txt" << std::endl;
+int main() {
+
+    ofstream fichier2("data/journal.txt");
+    /*
+    if(!fichier2.is_open()){
+        cerr<<"Erreur : impossible d'ouvrir le fichier journal.txt"<<endl;
+    }
+    string cmd;
+    while(cmd!="-1"){
+        cout<<"Entrez la commande(Faire -1 pour arreter la saisit) :"<<endl;
+        getline(cin,cmd);
+        if(cmd!="-1"){
+            fichier2<<cmd<<endl;
+        }
+
+    }
+*/
+    ifstream fichier("data/plan.txt");
+    if(!fichier.is_open()){
+        cerr << "Erreur : impossible d'ouvrir le fichier plan.txt"<<endl;
         return 1;
     }
-    std::cerr << "--- Execution du plan ---" << std::endl;
-    std::string commande;
+    SequenceActions plan;
+    string commande;
+    fichier2<<"====Journal D'action====="<<endl<<"Format : Action + Parametres"<<endl<<"=============================="<<endl;
     while (fichier>>commande){
         fichier2<<"Action executee :";
         if (commande =="DEPLACER"){
             double dx, dy, dz;
-            fichier >> dx>>dy>>dz;
+            if (!(fichier >> dx >> dy >> dz)) {
+                std::cerr << "Erreur : parametres invalides pour DEPLACER\n";
+                fichier.clear();
+                fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
             plan.ajouter(new deplacer(dx,dy,dz));
             fichier2<<commande<<" | dx="<<dx<<"mm, dy="<<dy<<"mm, dz= "<<dz<<"mm"<<endl;
         }
-
         else if(commande =="OUVRIR_PINCE"){
             plan.ajouter(new OuvrirPince());
             fichier2<<commande<<endl;
@@ -40,7 +61,12 @@ int main() {
         }
         else if(commande == "ROTATION"){
             int angle;
-            fichier >> angle;
+            if (!(fichier >> angle)) {
+                std::cerr << "Erreur : parametres invalides pour ROTATION\n";
+                fichier.clear();
+                fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
             plan.ajouter(new rotation_angle(angle));
             fichier2<<commande<<" | angle="<< angle<<" degres"<<endl;
         }
@@ -49,23 +75,23 @@ int main() {
         }
 
     }
-
-    /*plan.ajouter(new OuvrirPince());
-    plan.ajouter(new Deplacer(15, 25, 36));
-    plan.ajouter(new FermerPince());
-
+    ContexteRobot ctx(0,0,100,true,0);
+    plan.executer(ctx);
+    ctx.afficherPosition();
+    plan.nettoyer();
+/*
+//Execution manuel
+    ContexteRobot ctx(0, 0, 100, true);
+    SequenceActions plan;
+    plan.ajouter(new deplacer(100, 0, 0));
+    plan.ajouter(new fermerpince());
     plan.ajouter(new OuvrirPince());
-    plan.ajouter(new Deplacer(45, 25, 2));
-    plan.ajouter(new FermerPince());
-    //plan.ajouter(............................
-    */
+    plan.ajouter(new deplacer(100, 10, 0));
+    plan.ajouter(new fermerpince());
 
     plan.executer(ctx);
-    std::cerr << std::endl;
-    std::cerr << "--- Etat final du robot ---" << std::endl;
     ctx.afficherPosition();
-
     plan.nettoyer();
-
+*/
     return 0;
 }
