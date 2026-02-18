@@ -1,15 +1,11 @@
 #include "fermerpince.h"
-#include "contexterobot.h"
 #include <iostream>
 
-fermerpince::fermerpince()
-{
+void FermerPince::afficherNom() const {
+    std::cout << "Action : Fermer Pince" << std::endl;
 }
 
-void fermerpince::executer(ContexteRobot& ctx){
-    ctx.fermerPince() ;
-}
+void FermerPince::executer(ContexteRobot& ctx) {
+    ctx.fermerPince();
 
-void fermerpince::afficherNom() const{
-    std::cout << "FermerPince generique" << std::endl;
 }

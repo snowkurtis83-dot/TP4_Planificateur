@@ -1,15 +1,17 @@
 #ifndef FERMERPINCE_H
 #define FERMERPINCE_H
+
 #include "actionrobot.h"
-#include "contexterobot.h"
 
+class FermerPince : public ActionRobot {
+private:
 
-class fermerpince: public ActionRobot
-{
 public:
-    fermerpince();
-    void executer(ContexteRobot& ctx) override;
-    void afficherNom() const override;
+
+    ~FermerPince() = default;
+    void executer(ContexteRobot& ctx);
+    void afficherNom() const;
+
 };
 
 #endif // FERMERPINCE_H

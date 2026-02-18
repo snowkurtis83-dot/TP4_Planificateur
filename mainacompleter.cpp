@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <limits>
 
 #include "contexterobot.h"
 #include "sequenceactions.h"
@@ -14,7 +14,7 @@ using namespace std;
 
 int main() {
 
-    ofstream fichier2("data/journal.txt");
+    ofstream journal("data/journal.txt");
     /*
     if(!fichier2.is_open()){
         cerr<<"Erreur : impossible d'ouvrir le fichier journal.txt"<<endl;
@@ -36,28 +36,39 @@ int main() {
     }
     SequenceActions plan;
     string commande;
-    fichier2<<"====Journal D'action====="<<endl<<"Format : Action + Parametres"<<endl<<"=============================="<<endl;
+    journal<<"====Journal D'action====="<<endl<<"Format : Action + Parametres"<<endl<<"=============================="<<endl;
     while (fichier>>commande){
-        fichier2<<"Action executee :";
+        journal<<"Action executee :";
         if (commande =="DEPLACER"){
             double dx, dy, dz;
-            fichier >> dx>>dy>>dz;
-            plan.ajouter(new deplacer(dx,dy,dz));
-            fichier2<<commande<<" | dx="<<dx<<"mm, dy="<<dy<<"mm, dz= "<<dz<<"mm"<<endl;
+            if (!(fichier >> dx >> dy >> dz)) {
+                std::cerr << "Erreur : parametres invalides pour DEPLACER\n";
+                fichier.clear();
+                fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            plan.ajouter(new Deplacer(dx,dy,dz));
+            journal<<commande<<" | dx="<<dx<<"mm, dy="<<dy<<"mm, dz= "<<dz<<"mm"<<endl;
         }
         else if(commande =="OUVRIR_PINCE"){
             plan.ajouter(new OuvrirPince());
-            fichier2<<commande<<endl;
+            journal<<commande<<endl;
         }
         else if(commande == "FERMER_PINCE"){
-            plan.ajouter(new fermerpince());
-            fichier2<<commande<<endl;
+            plan.ajouter(new FermerPince());
+            journal<<commande<<endl;
         }
         else if(commande == "ROTATION"){
             int angle;
-            fichier >> angle;
+            if (!(fichier >> angle)) {
+                std::cerr << "Erreur : parametres invalides pour ROTATION\n";
+                fichier.clear();
+                fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
             plan.ajouter(new rotation_angle(angle));
-            fichier2<<commande<<" | angle="<< angle<<" degres"<<endl;
+            journal<<commande<<" | angle="<< angle<<" degres"<<endl;
         }
         else{
             cerr<<"Commande inconnue :"<<commande<<endl;

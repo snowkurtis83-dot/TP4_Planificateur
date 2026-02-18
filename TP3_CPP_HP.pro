@@ -8,7 +8,7 @@ SOURCES += \
         contexterobot.cpp \
         deplacer.cpp \
         fermerpince.cpp \
-        main.cpp \
+        mainacompleter.cpp \
         ouvrirpince.cpp \
         rotation_angle.cpp \
         sequenceactions.cpp
