@@ -1,11 +1,17 @@
 #include "ouvrirpince.h"
+#include "contexterobot.h"
 #include <iostream>
 
-void OuvrirPince::afficherNom() const {
-    std::cout << "Action : Ouvrir Pince" << std::endl;
+
+OuvrirPince::OuvrirPince()
+{
+
 }
 
-void OuvrirPince::executer(ContexteRobot& ctx) {
-    ctx.ouvrirPince();
+void OuvrirPince::executer(ContexteRobot& ctx){
+    ctx.ouvrirPince() ;
+}
 
+void OuvrirPince::afficherNom() const{
+    std::cout << "OuvrirPince generique" << std::endl;
 }

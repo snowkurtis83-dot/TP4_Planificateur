@@ -12,10 +12,10 @@ static const double RMIN = -360;
 static const double RMAX = 360;
 
 // Constructeur
-ContexteRobot::ContexteRobot(double p_x, double p_y, double p_z,double p_r, bool p_pince_ouverte)
+ContexteRobot::ContexteRobot(double p_x, double p_y, double p_z, bool p_pince_ouverte, int angle)
 : m_pince_ouverte(p_pince_ouverte) {
     deplacerVers(p_x, p_y, p_z);
-    tournerPince(p_r);
+    rotationAngle(angle);
 }
 
 
@@ -23,8 +23,8 @@ ContexteRobot::ContexteRobot(double p_x, double p_y, double p_z,double p_r, bool
 double ContexteRobot::getX() { return m_x; }
 double ContexteRobot::getY() { return m_y; }
 double ContexteRobot::getZ() { return m_z; }
-double ContexteRobot::getR() { return m_r; }
 bool   ContexteRobot::PinceEstOuverte() { return m_pince_ouverte; }
+int ContexteRobot::getAngle(){return m_angle;}
 
 // Actions
 void ContexteRobot::deplacerVers(double p_x, double p_y, double p_z) {
@@ -51,21 +51,21 @@ void ContexteRobot::fermerPince() {
         m_pince_ouverte = false;
     }
 }
-void ContexteRobot::tournerPince(double p_r) {
-    if (p_r < XMIN || p_r > XMAX ) {
-        std::cout << "[ERREUR] Position hors limites, déplacement ignoré." << std::endl;
 
-    }
+void ContexteRobot::rotationAngle(int p_angle){
+     if (p_angle < RMIN || p_angle > RMAX ) {
+        std::cout << "[ERREUR] Rotation hors limites." << std::endl;
+     }
     else
-    {
-        m_r = p_r;
+     {
+       m_angle=p_angle;
     }
 }
-
 
 // Affichage
 void ContexteRobot::afficherPosition() {
     std::cout << "Position : (" << m_x << ", " << m_y << ", " << m_z << ")" << std::endl;
-    std::cout << "Angle : (" << m_r << ")";
-    std::cout << " | Pince " << (m_pince_ouverte ? "ouverte" : "fermée") << std::endl;
+    std::cout << "Pince " << (m_pince_ouverte ? "ouverte" : "fermee")<<std::endl;
+    std::cout << "Angle de "<<m_angle<<" degres"<< std::endl;
 }
+

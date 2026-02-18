@@ -1,0 +1,7 @@
+Action executee :DEPLACER | dx=58mm, dy=69mm, dz= 45mm
+Action executee :OUVRIR_PINCE
+Action executee :ROTATION | angle=4 degres
+Action executee :FERMER_PINCE
+Action executee :ROTATION | angle=74 degres
+Action executee :DEPLACER | dx=14mm, dy=25mm, dz= 63mm
+Action executee :Action executee :

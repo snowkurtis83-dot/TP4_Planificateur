@@ -1,6 +1,8 @@
-#include "actionrobot.h"
 #include <iostream>
+#include "actionrobot.h"
 
 void ActionRobot::afficherNom() const {
-    std::cout << "ActionRobot generique" << std::endl;
+
+std::cout << "ActionRobot generique" << std::endl;
+
 }

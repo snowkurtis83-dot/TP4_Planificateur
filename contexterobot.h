@@ -3,25 +3,26 @@
 
 class ContexteRobot {
 private:
-    double m_x, m_y, m_z, m_r;
+    double m_x, m_y, m_z;
     bool m_pince_ouverte;
+    int m_angle=0;
 
 public:
     // Constructeur
-    ContexteRobot(double p_x, double p_y, double p_z,double p_r, bool p_pince_ouverte);
+    ContexteRobot(double p_x, double p_y, double p_z, bool p_pince_ouverte,int angle);
 
     // Accès lecture
     double getX();
     double getY();
     double getZ();
-    double getR();
     bool PinceEstOuverte();
+    int getAngle();
 
     // Actions
     void deplacerVers(double p_x, double p_y, double p_z);
     void ouvrirPince();
     void fermerPince();
-    void tournerPince(double p_r);
+    void rotationAngle(int p_angle);
 
     // Affichage
     void afficherPosition();
