@@ -58,8 +58,9 @@ void ContexteRobot::rotationAngle(int p_angle){
      }
     else
      {
-       m_angle=p_angle;
-    }
+       m_angle = p_angle;
+     }
+
 }
 
 // Affichage
