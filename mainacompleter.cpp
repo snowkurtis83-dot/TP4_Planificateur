@@ -29,7 +29,7 @@ int main() {
 
     }
 */
-   ContexteRobot ctx(0, 0, 100, true);
+   ContexteRobot ctx(0, 0, 100, true, 15);
 
     SequenceActions plan;
     std::ifstream fichier("data/plan.txt");
