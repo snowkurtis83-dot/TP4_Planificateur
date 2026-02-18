@@ -13,5 +13,5 @@ void rotation_angle::executer(ContexteRobot &ctx){
 }
 
 void rotation_angle::afficherNom() const{
-    cout <<"Roation de "<<m_angle<<"degres"<<endl;
+    cout <<"Roation de "<<m_angle<<" degres"<<endl;
 }
