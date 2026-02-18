@@ -8,6 +8,8 @@ static const double YMIN = -1000;
 static const double YMAX = 1000;
 static const double ZMIN = 0;
 static const double ZMAX = 1000;
+static const double RMIN = -360;
+static const double RMAX = 360;
 
 // Constructeur
 ContexteRobot::ContexteRobot(double p_x, double p_y, double p_z, bool p_pince_ouverte, int angle)
@@ -51,7 +53,13 @@ void ContexteRobot::fermerPince() {
 }
 
 void ContexteRobot::rotationAngle(int p_angle){
-    m_angle=p_angle;
+     if (p_angle < RMIN || p_angle > RMAX ) {
+        std::cout << "[ERREUR] Rotation hors limites." << std::endl;
+     } 
+    else
+     {
+       m_angle=p_angle;  
+    }
 }
 
 // Affichage
