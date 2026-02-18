@@ -29,14 +29,16 @@ int main() {
 
     }
 */
-    ifstream fichier("data/plan.txt");
-    if(!fichier.is_open()){
-        cerr << "Erreur : impossible d'ouvrir le fichier plan.txt"<<endl;
+   ContexteRobot ctx(0, 0, 100, true);
+
+    SequenceActions plan;
+    std::ifstream fichier("data/plan.txt");
+    if (!fichier.is_open()){
+        std::cerr << "Erreur : impossible d'ouvrir le fichier plan.txt" << std::endl;
         return 1;
     }
-    SequenceActions plan;
-    string commande;
-    fichier2<<"====Journal D'action====="<<endl<<"Format : Action + Parametres"<<endl<<"=============================="<<endl;
+    std::cerr << "--- Execution du plan ---" << std::endl;
+    std::string commande;
     while (fichier>>commande){
         fichier2<<"Action executee :";
         if (commande =="DEPLACER"){
@@ -75,23 +77,23 @@ int main() {
         }
 
     }
-    ContexteRobot ctx(0,0,100,true,0);
-    plan.executer(ctx);
-    ctx.afficherPosition();
-    plan.nettoyer();
-/*
-//Execution manuel
-    ContexteRobot ctx(0, 0, 100, true);
-    SequenceActions plan;
-    plan.ajouter(new deplacer(100, 0, 0));
-    plan.ajouter(new fermerpince());
+
+    /*plan.ajouter(new OuvrirPince());
+    plan.ajouter(new Deplacer(15, 25, 36));
+    plan.ajouter(new FermerPince());
+
     plan.ajouter(new OuvrirPince());
-    plan.ajouter(new deplacer(100, 10, 0));
-    plan.ajouter(new fermerpince());
+    plan.ajouter(new Deplacer(45, 25, 2));
+    plan.ajouter(new FermerPince());
+    //plan.ajouter(............................
+    */
 
     plan.executer(ctx);
+    std::cerr << std::endl;
+    std::cerr << "--- Etat final du robot ---" << std::endl;
     ctx.afficherPosition();
+
     plan.nettoyer();
-*/
+
     return 0;
 }
