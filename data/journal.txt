@@ -1,1 +1,9 @@
-Action executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000msAction executee : ATTENDRE | duree=2000ms
+====Journal D'action=====
+Format : Action + Parametres
+==============================
+Action executee :DEPLACER | dx=10mm, dy=0mm, dz= 0mm
+Action executee :OUVRIR_PINCE
+Action executee :ROTATION | angle=90 degres
+Action executee :FERMER_PINCE
+Action executee :ROTATION | angle=-45 degres
+Action executee :DEPLACER | dx=0mm, dy=0mm, dz= -20mm
