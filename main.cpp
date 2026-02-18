@@ -39,6 +39,8 @@ int main() {
     }
     std::cerr << "--- Execution du plan ---" << std::endl;
     std::string commande;
+	journal<<"====Journal D'action====="<<endl<<"Format : Action + Parametres"<<endl<<"=============================="<<std::endl;
+
     while (fichier>>commande){
         fichier2<<"Action executee :";
         if (commande =="DEPLACER"){
