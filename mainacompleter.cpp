@@ -8,7 +8,7 @@
 #include "ouvrirpince.h"
 #include "deplacer.h"
 #include "actionrobot.h"
-#include "rotation.h"
+#include "rotation_angle.h"
 
 int main() {
     ContexteRobot ctx(0, 0, 100, 90, true);
