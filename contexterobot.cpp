@@ -55,11 +55,12 @@ void ContexteRobot::fermerPince() {
 void ContexteRobot::rotationAngle(int p_angle){
      if (p_angle < RMIN || p_angle > RMAX ) {
         std::cout << "[ERREUR] Rotation hors limites." << std::endl;
-     } 
+     }
     else
      {
-       m_angle=p_angle;  
-    }
+       m_angle = p_angle;
+     }
+
 }
 
 // Affichage

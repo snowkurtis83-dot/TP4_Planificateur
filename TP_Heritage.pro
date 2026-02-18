@@ -8,8 +8,9 @@ SOURCES += \
         contexterobot.cpp \
         deplacer.cpp \
         fermerpince.cpp \
-        mainacompleter.cpp \
+        main.cpp \
         ouvrirpince.cpp \
+        rotation_angle.cpp \
         sequenceactions.cpp
 
 HEADERS += \
@@ -18,4 +19,5 @@ HEADERS += \
     deplacer.h \
     fermerpince.h \
     ouvrirpince.h \
+    rotation_angle.h \
     sequenceactions.h
